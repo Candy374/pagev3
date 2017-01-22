@@ -38,6 +38,12 @@ class BoardSquare extends Component {
     if (nextProps.newBox) {
       this.setState({boxes: this.state.boxes.concat(nextProps.newBox)});
     }
+
+    const boxes = this.state.boxes;
+    nextProps.boxes.map((nextBox, index) => boxes[index] = {...boxes[index], ...nextBox});
+    this.setState({
+      boxes
+    });
   }
 
   moveBox(id, left, top) {
@@ -60,12 +66,14 @@ class BoardSquare extends Component {
     return connectDropTarget(
       <div className="board">
         {boxes.map((box, index) => {
-          const {left, top, title} = box;
+          const {left, top, title, onClick, style} = box;
           return (
             <Box key={index}
                  id={index}
                  left={left}
                  top={top}
+                 style={style}
+                 onClick={onClick}
                  hideSourceOnDrag={hideSourceOnDrag}>
               {title}
             </Box>

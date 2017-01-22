@@ -5,14 +5,6 @@ import React, {Component, PropTypes} from 'react';
 import {ItemTypes} from '../constants';
 import {DragSource} from 'react-dnd';
 
-const style = {
-  position: 'absolute',
-  border: '1px dashed gray',
-  backgroundColor: 'white',
-  padding: '0.5rem 1rem',
-  cursor: 'move',
-};
-
 const source = {
   beginDrag(props) {
     const {id, left, top} = props;
@@ -28,13 +20,16 @@ const collect = (connect, monitor) => ({
 class Box extends Component {
 
   render() {
-    const {hideSourceOnDrag, left, top, connectDragSource, isDragging, children} = this.props;
+    const {
+      hideSourceOnDrag, left, top, connectDragSource, isDragging, children,
+      onClick, style = {}
+    } = this.props;
     if (isDragging && hideSourceOnDrag) {
       return null;
     }
 
     return connectDragSource(
-      <div style={{...style, left, top}}>
+      <div className="box" style={{...style, left, top}} onClick={onClick}>
         {children}
       </div>
     );
