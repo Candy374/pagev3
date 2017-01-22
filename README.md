@@ -13,7 +13,7 @@ To run this application, execute the following commands:
 1. Start the development server:
 
     ```
-    $ npm start # 
+    $ npm start
     ```
 
 1. Create the app distribution to be used by the back-end server
