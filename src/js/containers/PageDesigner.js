@@ -6,7 +6,6 @@ import Text from '../components/singleItem/Text';
 import Image from '../components/singleItem/Image';
 import BoardSquare from '../components/BoardSquare';
 import {Button, Modal} from 'antd';
-import * as ReactDOM from 'react-dom';
 import SettingDialog from '../components/SettingDialog';
 
 const Widgets = {
@@ -34,12 +33,8 @@ export default class Page extends Component {
       left: 80,
       id: id,
       title: <Comp />,
-      onClick: () => {
-        this.setState({showSetting: true});
-      },
-      onMouseDown: () => {
-        this.setState({focusedId: id})
-      }
+      onClick: () => this.setState({showSetting: true}),
+      onMouseDown: () => this.setState({focusedId: id})
     };
     this.setState({
       boxes: this.state.boxes.concat(newBox),
@@ -100,8 +95,7 @@ export default class Page extends Component {
             }
           </header>
           <div className="main-container">
-            {boxes.map(box => {
-              return (
+            {boxes.map(box => (
                 <div key={box.id}>
                   <span>{`id: ${box.id}: `}</span>
                   <span>{`left: ${box.left}`}</span>
@@ -109,7 +103,7 @@ export default class Page extends Component {
                   <span>{box.style ? `opacity: ${box.style.opacity}` : ''}</span>
                 </div>
               )
-            })}
+            )}
             <section className="content">
               <BoardSquare boxes={boxes}
                            updateBoxes={this.updateBoxes.bind(this)}/>

@@ -4,9 +4,7 @@
 import React, {Component} from 'react';
 import {Card, Tabs, Menu, Slider, Row, Col, InputNumber} from 'antd';
 const SubMenu = Menu.SubMenu;
-
 const TabPane = Tabs.TabPane;
-import {connect} from 'react-redux';
 
 export  default  class SettingContainer extends Component {
   componentWillMount() {

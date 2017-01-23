@@ -3,3 +3,10 @@ dist
 npm-debug.log*
 *.log
 .idea/
+.vscode/
+data/
+docs/
+server/
+src/data/
+src/fonts/
+src/img/

@@ -29,12 +29,12 @@ function collect(connect, monitor) {
 class BoardSquare extends Component {
   moveBox(id, left, top) {
     const boxes = update(this.props.boxes, {
-        [id]: {
-          $merge: {
-            left: left,
-            top: top
-          }
+      [id]: {
+        $merge: {
+          left: left,
+          top: top
         }
+      }
     });
     this.props.updateBoxes(boxes);
   }
