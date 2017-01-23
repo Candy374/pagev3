@@ -84,7 +84,7 @@ export default class Page extends Component {
       {title: 'Text'}, {title: 'Image'}
     ];
 
-    const {preview, showSetting} = this.state;
+    const {preview, showSetting, boxes} = this.state;
 
     return (
       <div>
@@ -100,8 +100,18 @@ export default class Page extends Component {
             }
           </header>
           <div className="main-container">
+            {boxes.map(box => {
+              return (
+                <div key={box.id}>
+                  <span>{`id: ${box.id}: `}</span>
+                  <span>{`left: ${box.left}`}</span>
+                  <span>{`top: ${box.top}`}</span>
+                  <span>{box.style ? `opacity: ${box.style.opacity}` : ''}</span>
+                </div>
+              )
+            })}
             <section className="content">
-              <BoardSquare boxes={this.state.boxes}
+              <BoardSquare boxes={boxes}
                            updateBoxes={this.updateBoxes.bind(this)}/>
             </section>
             <aside className="sidebar-right">
