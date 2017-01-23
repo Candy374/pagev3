@@ -21,15 +21,14 @@ class Box extends Component {
 
   render() {
     const {
-      hideSourceOnDrag, left, top, connectDragSource, isDragging, children,
+      left, top, connectDragSource, children, onMouseDown,
       onClick, style = {}
     } = this.props;
-    if (isDragging && hideSourceOnDrag) {
-      return null;
-    }
 
     return connectDragSource(
-      <div className="box" style={{...style, left, top}} onClick={onClick}>
+      <div className="box" style={{...style, left, top}}
+           onMouseDown={onMouseDown}
+           onClick={onClick}>
         {children}
       </div>
     );

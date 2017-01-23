@@ -27,55 +27,28 @@ function collect(connect, monitor) {
 
 
 class BoardSquare extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      boxes: props.boxes
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.newBox) {
-      this.setState({boxes: this.state.boxes.concat(nextProps.newBox)});
-    }
-
-    const boxes = this.state.boxes;
-    nextProps.boxes.map((nextBox, index) => boxes[index] = {...boxes[index], ...nextBox});
-    this.setState({
-      boxes
-    });
-  }
-
   moveBox(id, left, top) {
-    this.setState(update(this.state, {
-      boxes: {
+    const boxes = update(this.props.boxes, {
         [id]: {
           $merge: {
             left: left,
             top: top
           }
         }
-      }
-    }));
+    });
+    this.props.updateBoxes(boxes);
   }
 
   render() {
-    const {hideSourceOnDrag, connectDropTarget} = this.props;
-    const {boxes} = this.state;
+    const {connectDropTarget, boxes} = this.props;
 
     return connectDropTarget(
       <div className="board">
         {boxes.map((box, index) => {
-          const {left, top, title, onClick, style} = box;
           return (
             <Box key={index}
-                 id={index}
-                 left={left}
-                 top={top}
-                 style={style}
-                 onClick={onClick}
-                 hideSourceOnDrag={hideSourceOnDrag}>
-              {title}
+                 {...box}>
+              {box.title}
             </Box>
           );
         })}

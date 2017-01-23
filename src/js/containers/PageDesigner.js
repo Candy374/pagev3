@@ -19,9 +19,7 @@ let previewHtml = '';
 export default class Page extends Component {
   componentWillMount() {
     this.state = {
-      boxes: [{top: 20, left: 80, title: 'Drag me around'},
-        {top: 180, left: 20, title: 'Drag me too'}
-      ],
+      boxes: [],
       newBox: null
     };
     this.onAddItem = this.onAddItem.bind(this);
@@ -30,33 +28,39 @@ export default class Page extends Component {
 
   onAddItem(type) {
     const Comp = Widgets[type];
-    this.setState({
-      newBox: {
-        top: 20,
-        left: 80,
-        title: <Comp />,
-        onClick: () => {
-          this.setState({showSetting: true});
-        }
+    const id = this.state.boxes.length;
+    const newBox = {
+      top: 20,
+      left: 80,
+      id: id,
+      title: <Comp />,
+      onClick: () => {
+        this.setState({showSetting: true});
+      },
+      onMouseDown: () => {
+        this.setState({focusedId: id})
       }
+    };
+    this.setState({
+      boxes: this.state.boxes.concat(newBox),
+      focusedId: id
     });
   }
 
+  updateBoxes(boxes) {
+    this.setState({boxes});
+  }
+
   onSave() {
-    const board = ReactDOM.findDOMNode(this.board);
-    previewHtml = board.innerHTML;
+
   }
 
   onPreview() {
-    if (!previewHtml) {
-      this.onSave();
-    }
 
-    this.setState({preview: true});
   }
 
   updateStyle(style) {
-    this.state.boxes[0].style = style;
+    this.state.boxes[this.state.focusedId].style = style;
     this.setState({boxes: this.state.boxes});
   }
   renderPreview() {
@@ -88,7 +92,7 @@ export default class Page extends Component {
           <header className="header">
             {
               headerItem.map((item, index) => (
-                <Button className="item"
+                <Button className="item" key={index}
                         onClick={() => this.onAddItem(item.title)}>
                   {item.title}
                 </Button>)
@@ -97,7 +101,8 @@ export default class Page extends Component {
           </header>
           <div className="main-container">
             <section className="content">
-              <BoardSquare ref={node => this.board = node} boxes={this.state.boxes} newBox={this.state.newBox}/>
+              <BoardSquare boxes={this.state.boxes}
+                           updateBoxes={this.updateBoxes.bind(this)}/>
             </section>
             <aside className="sidebar-right">
               <Button onClick={() => this.onSave()}>Save</Button>
