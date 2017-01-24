@@ -9,7 +9,7 @@
     "start": "gulp dev",
     "dist": "gulp dist",
     "deploy": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages",
-    "public": "sh ./scripts/buildSite.sh"
+    "publish": "sh ./scripts/buildSite.sh"
   },
   "dependencies": {
     "less": "^2.7.2",
