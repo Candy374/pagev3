@@ -6,7 +6,3 @@ npm-debug.log*
 .vscode/
 data/
 docs/
-server/
-src/data/
-src/fonts/
-src/img/
