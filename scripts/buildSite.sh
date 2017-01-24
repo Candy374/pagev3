@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 SITE_DIRECTORY="site”
 
