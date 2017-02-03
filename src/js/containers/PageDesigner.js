@@ -95,26 +95,28 @@ export default class Page extends Component {
             }
           </header>
           <div className="main-container">
-            {boxes.map(box => (
-                <div key={box.id}>
-                  <span>{`id: ${box.id}: `}</span>
-                  <span>{`left: ${box.left}`}</span>
-                  <span>{`top: ${box.top}`}</span>
-                  <span>{box.style ? `opacity: ${box.style.opacity}` : ''}</span>
-                </div>
-              )
-            )}
             <section className="content">
               <BoardSquare boxes={boxes}
                            updateBoxes={this.updateBoxes.bind(this)}/>
+
+              <div>
+                {boxes.map(box => (
+                    <div key={box.id}>
+                      <span>{`id: ${box.id}: `}</span>
+                      <span>{`left: ${box.left}`}</span>
+                      <span>{`top: ${box.top}`}</span>
+                      <span>{box.style ? `opacity: ${box.style.opacity}` : ''}</span>
+                    </div>
+                  )
+                )}
+              </div>
             </section>
             <aside className="sidebar-right">
               <Button onClick={() => this.onSave()}>Save</Button>
               <Button onClick={() => this.onPreview()}>Preview</Button>
               <SettingDialog toggleShow={(show) => this.setState({showSetting: show})}
                              updateStyle={this.updateStyle.bind(this)}
-                             show={showSetting}
-              />
+                             show={showSetting}/>
             </aside>
           </div>
         </div>

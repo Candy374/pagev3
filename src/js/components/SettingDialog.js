@@ -66,7 +66,6 @@ export  default  class SettingContainer extends Component {
             mode="inline"
             openKeys={this.state.openKeys}
             selectedKeys={[this.state.current]}
-            style={{width: 500}}
             onOpenChange={this.onOpenChange}
             onClick={this.handleClick}
           >
@@ -108,7 +107,7 @@ export  default  class SettingContainer extends Component {
     ];
 
     return (
-      <Card title="Settings" style={{width: 600}}>
+      <Card title="Settings">
         <Tabs onChange={this.onChange}
               activeKey={this.state.activeKey}>
           {panes.map(pane => <TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>)}
