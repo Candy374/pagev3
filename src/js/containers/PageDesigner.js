@@ -32,7 +32,9 @@ export default class Page extends Component {
       top: 20,
       left: 80,
       id: id,
-      title: <Comp />,
+      title: <Comp onSave={(settings) => {
+        Object.assign(this.state.boxes[id], settings)
+      } }/>,
       onClick: () => this.setState({showSetting: true}),
       onMouseDown: () => this.setState({focusedId: id})
     };
@@ -100,12 +102,21 @@ export default class Page extends Component {
                            updateBoxes={this.updateBoxes.bind(this)}/>
 
               <div>
-                {boxes.map(box => (
-                    <div key={box.id}>
-                      <span>{`id: ${box.id}: `}</span>
-                      <span>{`left: ${box.left}`}</span>
-                      <span>{`top: ${box.top}`}</span>
-                      <span>{box.style ? `opacity: ${box.style.opacity}` : ''}</span>
+                {boxes.map((box, index) => (
+                  <div key={index}>
+                    {
+                      Object.keys(box).map((key, index) => {
+                        if (typeof box[key] != 'object' && typeof box[key] != 'function') {
+                          return <span key={index}>{`${key}: ${box[key]}; `}</span>;
+                        }
+                      })
+                    }
+                    {box.style && Object.keys(box.style).map((key, index) => {
+                      if (typeof box.style[key] != 'object' && typeof box.style[key] != 'function') {
+                        return <span key={index}>{`${key}: ${box.style[key]}; `}</span>;
+                      }
+                    })
+                    }
                     </div>
                   )
                 )}

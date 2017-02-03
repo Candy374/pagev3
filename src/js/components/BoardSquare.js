@@ -46,8 +46,7 @@ class BoardSquare extends Component {
       <div className="board">
         {boxes.map((box, index) => {
           return (
-            <Box key={index}
-                 {...box}>
+            <Box key={index} {...box}>
               {box.title}
             </Box>
           );
