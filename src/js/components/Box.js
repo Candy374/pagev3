@@ -14,21 +14,55 @@ const source = {
 
 const collect = (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
+  connectDragPreview: connect.dragPreview(),
   isDragging: monitor.isDragging()
 });
 
 class Box extends Component {
+  componentWillMount() {
+    this.state = {
+      showDrag: false
+    };
+  }
+
+  onClick() {
+    this.setState({
+      showDrag: true
+    });
+    this.props.onClick();
+  }
 
   render() {
     const {
       left, top, connectDragSource, children, onMouseDown,
-      onClick, style = {}
+      style = {}, connectDragPreview
     } = this.props;
 
-    return connectDragSource(
-      <div className="box" style={{...style, left, top}}
+    const {showDrag} = this.state;
+
+    return connectDragPreview(
+      <div className={`box ${showDrag ? 'editing' : ''}`} style={{...style, left, top}}
            onMouseDown={onMouseDown}
-           onClick={onClick}>
+           onClick={this.onClick.bind(this)}
+           onBlur={() => this.setState({showDrag: false})}>
+        {showDrag && connectDragSource(
+          <div className="drag-group">
+            <div className="top"/>
+            <div className="left"/>
+            <div className="right"/>
+            <div className="bottom"/>
+          </div>
+        )}
+        {showDrag && <div className="size-group">
+          <div className="top-left"/>
+          <div className="top-right"/>
+          <div className="middle-left"/>
+          <div className="middle-right"/>
+          <div className="bottom-right"/>
+          <div className="bottom-left"/>
+          <div className="rotate"/>
+        </div>
+        }
         {children}
       </div>
     );

@@ -1,0 +1,118 @@
+.drag-group {
+  & > div {
+    position: absolute;
+    cursor: move;
+  }
+
+  .top, .bottom {
+    height: 30px;
+    left: 0;
+    right: 0;
+
+    &:after, &:before {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+    }
+
+    &:before {
+      left: -30px;
+    }
+
+    &:after {
+      right: -30px;
+    }
+  }
+
+  .top {
+    top: -30px;
+    border-bottom: 1px solid gray;
+  }
+
+  .bottom {
+    bottom: -30px;
+    border-top: 1px solid gray;
+  }
+
+  .right {
+    width: 30px;
+    top: 0;
+    bottom: 0;
+    right: -30px;
+    border-left: 1px solid gray;
+  }
+
+  .left {
+    width: 30px;
+    top: 0;
+    bottom: 0;
+    left: -30px;
+    border-right: 1px solid gray;
+  }
+}
+
+.size-group {
+  z-index: 1;
+  & > div {
+    position: absolute;
+    border: 1px solid gray;
+    background: #fff;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+  }
+
+  .top-left {
+    left: -5px;
+    top: -5px;
+    cursor: nwse-resize;
+  }
+
+  .bottom-left {
+    left: -5px;
+    bottom: -5px;
+    cursor: nesw-resize;
+  }
+
+  .top-right {
+    right: -5px;
+    top: -5px;
+    cursor: nesw-resize;
+  }
+
+  .bottom-right {
+    right: -5px;
+    bottom: -5px;
+    cursor: nwse-resize;
+  }
+
+  .middle-left {
+    left: -5px;
+    top: 50%;
+    margin-top: -5px;
+    cursor: ew-resize;
+  }
+
+  .middle-right {
+    right: -5px;
+    top: 50%;
+    margin-top: -5px;
+    cursor: ew-resize;
+  }
+
+  .rotate {
+    left: 50%;
+    margin-left: -5px;
+    bottom: -20px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      border-left: 1px solid gray;
+      top: -10px;
+      bottom: 8px;
+      left: 3px;
+    }
+  }
+}
