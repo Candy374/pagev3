@@ -1,63 +1,66 @@
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
-// import wrapInTestContext from '../../../shared/wrapInTestContext';
-// import expect from 'expect';
+import {shallow} from 'enzyme';
+import sinon from 'sinon';
 import Box from '../../src/js/components/Box';
-import chai from 'chai';
+import {expect} from 'chai';
 
-let expect = chai.expect;
-
-describe('加法函数的测试', function () {
-  it('1 加 1 应该等于 2', function () {
-    expect(add(1, 1)).to.be.equal(2);
-  });
-});
-
-describe('Box', () => {
-  it('can be tested independently', () => {
-    // Obtain the reference to the component before React DnD wrapping
+describe('<Box />', () => {
+  it('can render', () => {
     const OriginalBox = Box.DecoratedComponent;
 
-    // Stub the React DnD connector functions with an identity function
     const identity = x => x;
+    let clicked = false;
 
-    // Render with one set of props and test
-    let root = TestUtils.renderIntoDocument(
+    let box = shallow(
       <OriginalBox name='test'
+                   id="0"
+                   left={123}
+                   top={456}
+                   onClick={() => clicked = true}
+                   connectDragPreview={identity}
                    connectDragSource={identity}
                    isDragging={false}/>
     );
-    let div = TestUtils.findRenderedDOMComponentWithTag(root, 'div');
-    expect(div.style.opacity).toEqual('1');
-
-    // Render with another set of props and test
-    root = TestUtils.renderIntoDocument(
-      <OriginalBox name='test'
-                   connectDragSource={identity}
-                   isDragging/>
-    );
-    div = TestUtils.findRenderedDOMComponentWithTag(root, 'div');
-    expect(div.style.opacity).toEqual('0.4');
+    expect(box.prop('className'), 'box');
   });
 
-  /*it('can be tested with the testing backend', () => {
-   // Render with the testing backend
-   const BoxContext = wrapInTestContext(Box);
-   const root = TestUtils.renderIntoDocument(<BoxContext name='test' />);
+  it('can not show drag handle before clicked', () => {
+    const OriginalBox = Box.DecoratedComponent;
 
-   // Obtain a reference to the backend
-   const backend = root.getManager().getBackend();
+    const identity = x => x;
+    let box = shallow(
+      <OriginalBox name='test'
+                   id="0"
+                   left={123}
+                   top={456}
+                   connectDragPreview={identity}
+                   connectDragSource={identity}
+                   isDragging={false}>
+      </OriginalBox>
+    );
+    expect(box.find('.drag-group')).to.have.length(0);
+  });
 
-   // Check that the opacity is 1
-   let div = TestUtils.findRenderedDOMComponentWithTag(root, 'div');
-   expect(div.style.opacity).toEqual('1');
+  it('can show drag handle after clicked', () => {
+    const OriginalBox = Box.DecoratedComponent;
 
-   // Find the drag source ID and use it to simulate the dragging state
-   const box = TestUtils.findRenderedComponentWithType(root, Box);
-   backend.simulateBeginDrag([box.getHandlerId()]);
+    const identity = x => x;
 
-   // Verify that the div changed its opacity
-   div = TestUtils.findRenderedDOMComponentWithTag(root, 'div');
-   expect(div.style.opacity).toEqual('0.4');
-   });*/
+    const onButtonClick = sinon.spy();
+
+    let box = shallow(
+      <OriginalBox name='test'
+                   id="0"
+                   left={123}
+                   top={456}
+                   onClick={onButtonClick}
+                   connectDragPreview={identity}
+                   connectDragSource={identity}
+                   isDragging={false}>
+      </OriginalBox>
+    );
+    box.simulate('click');
+    expect(box.find('.drag-group')).to.have.length(1);
+    expect(box.prop('className')).to.include('editing');
+  });
 });
