@@ -9,6 +9,13 @@ module.exports = function (config) {
 
     // frameworks to use
     frameworks: ['jasmine'],
+    preprocessors: {
+
+      'test/test.js': ['babel'],
+      'src/index.js': ['babel']
+    },
+
+
 
     // list of files / patterns to load in the browser
     files: [
@@ -16,7 +23,7 @@ module.exports = function (config) {
       // {pattern: 'src/**/*.js', included: false},
       // {pattern: 'test/test.js', included: false},
       'test/test.js',
-      'src/*.js'
+      'src/index.js'
       // 'test/test-main.js',
     ],
 

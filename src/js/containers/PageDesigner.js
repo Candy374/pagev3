@@ -33,8 +33,8 @@ export default class Page extends Component {
       left: 80,
       id: id,
       title: <Comp onSave={(settings) => {
-        Object.assign(this.state.boxes[id], settings)
-      } }/>,
+        Object.assign(this.state.boxes[id], settings);
+      }}/>,
       onClick: () => this.setState({showSetting: true}),
       onMouseDown: () => this.setState({focusedId: id})
     };

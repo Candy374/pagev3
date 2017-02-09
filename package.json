@@ -10,7 +10,7 @@
     "dist": "gulp dist",
     "deploy": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages",
     "publish": "sh ./scripts/buildSite.sh",
-    "test": "karma start"
+    "test": "mocha ./test/*.js --compilers js:babel-core/register -watch"
   },
   "dependencies": {
     "less": "^2.7.2",
@@ -34,16 +34,22 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-1": "^6.22.0",
     "babel-register": "^6.5.2",
+    "chai": "^3.5.0",
+    "es6-module-loader": "^0.17.11",
     "grommet-toolbox": "^0.4.5",
     "gulp": "^3.9.0",
+    "mocha": "^3.2.0",
+    "redux-devtools": "^3.3.1",
+
+
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
     "karma": "^1.4.1",
+    "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^2.0.0",
     "karma-growl-reporter": "^1.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.2",
-    "redux-devtools": "^3.3.1",
+    "karma-webpack": "^2.0.2"
   }
 }
