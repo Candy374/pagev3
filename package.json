@@ -10,7 +10,8 @@
     "dist": "gulp dist",
     "deploy": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages",
     "publish": "sh ./scripts/buildSite.sh",
-    "test": "mocha ./test/components/*.js --compilers js:babel-core/register --require ./test/setup.js"
+    "test": "mocha ./test/components/*.js --compilers js:babel-core/register --require ./test/setup.js",
+    "cover": "gulp test-coverage"
   },
   "dependencies": {
     "less": "^2.7.2",
@@ -39,6 +40,8 @@
     "es6-module-loader": "^0.17.11",
     "grommet-toolbox": "^0.4.5",
     "gulp": "^3.9.0",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-mocha": "^3.0.1",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
     "jsdom": "^9.10.0",
