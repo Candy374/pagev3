@@ -27,3 +27,14 @@ To run this application, execute the following commands:
     ```
     $ npm run deploy
     ```
+1. Test 
+
+    ```
+    $ npm run test
+    ```
+1. Test with coverage
+
+    ```
+    $ npm run cover
+    ```
+    
