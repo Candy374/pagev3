@@ -1,4 +1,4 @@
-# Demo of Grommet Font End Framework
+# Demo of Grommet Font End Frameworks
 
 This project is built by React and Redux framework.
 
